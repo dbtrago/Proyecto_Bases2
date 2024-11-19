@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Sesion</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="#" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="#" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    </head>
+    <body>
+        <section th:fragment="crearNuevaSesion" class="py-3 mb-3">
+            <form th:action="@{/crearNuevaSesion}" th:object="${vendedor}" method="POST" class="was-validated"> 
+                <div id="crearNuevaSesion" th:object="${sesion}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="nombre">[[#{vendedor.nombre}]]: </label>
+                                            <input type="text" class="form-control" name="nombre" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="correo">[[#{vendedor.correo}]] </label>
+                                            <input type="text" class="form-control" name="correo" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="celular">[[#{vendedor.celular}]] </label>
+                                            <input type="text" class="form-control" name="celular" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="totalVentas">[[#{vendedor.totalventas}]] </label>
+                                            <input type="text" class="form-control" name="totalVentas" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="identificacion">[[#{vendedor.identificacion}]] </label>
+                                            <input type="text" class="form-control" name="identificacion" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="direccion">[[#{vendedor.direccion}]] </label>
+                                            <input type="text" class="form-control" name="direccion" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="identificacionReferido">[[#{vendedor.identificacionReferido}]] </label>
+                                            <input type="text" class="form-control" name="identificacionReferido" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nivelId">[[#{vendedor.nivelId}]] </label>
+                                            <select name="nivelId" id="nivelId">
+                                                <option  th:each="nivel : ${niveles}" th:value="${nivel.nivelId}" th:text="${nivel.nombre}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section th:replace="~{layout/plantillaSesion :: botonGuardarSesion}"></section>
+            </form>
+        </section>
+        <section th:fragment="botonGuardarSesion">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row"> 
+                        <div class="col-md-3">
+                            <button name="botonGuardarSesion" type="submit" class="btn btn-success btn-block">
+                                <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonCrearSesion">
+            <div id="actions" class="py-4 mb-2">
+                <div class="container">
+                    <h5 class="form-group text-center">Registrar vendedor</h5>
+                    <div class="row text-center"> 
+                        <div class="col-md-12">
+                            <a th:href="@{/cargarInformacionSesion}" class="btn btn-info btn-block">
+                                <i class="fas fa-plus" id="botonCrearSesion"></i> [[#{accion.crear-sesion}]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

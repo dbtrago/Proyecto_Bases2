@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Usuario no autorizado</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <div>No se pudo iniciar sesión. 
+            El correo no se encuentra registrado en el sistema.
+            Por favor, crear su registro e intente nuevamente iniciar sesión.
+            <a th:href="@{/login}" >[[#{accion.regresar}]]</a>
+        </div>
+    </body>
+</html>

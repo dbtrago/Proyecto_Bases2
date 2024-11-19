@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Botones guardar</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="botonGuardarInventario">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row"> 
+                        <div class="col">
+                            <button type="submit" name="botonGuardarInventario" class="btn btn-success btn-block">
+                                <i class="fas fa-check" id="botonGuardarInventario"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonGuardarProducto">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row"> 
+                        <div class="col">
+                            <button type="submit" name="botonGuardarProducto" class="btn btn-success btn-block">
+                                <i class="fas fa-check" id="botonGuardarProducto"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section th:fragment="botonCrearProducto">
+            <div id="actions" class="py-4 mb-2">
+                <div class="container">
+                    <h5 class="form-group text-center">Resgistrar producto</h5>
+                    <div class="row text-center"> 
+                        <div class="col-md-12">
+                            <a th:href="@{/cargarInformacionProducto}" class="btn btn-info btn-block">
+                                <i class="fas fa-plus" id="botonCrearProducto"></i> [[#{accion.crear-producto}]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonGuardarVenta">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row"> 
+                        <div class="col">
+                            <button type="submit" name="botonGuardarVenta" class="btn btn-success btn-block">
+                                <i class="fas fa-check" id="botonGuardarVenta"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonCrearVenta">
+            <div id="actions" class="py-4 mb-2" th:object="${vendedor}">
+                <div class="container">
+                    <h5 class="form-group text-center">Crear una nueva venta</h5>
+                    <div class="row text-center"> 
+                        <div class="col-md-12">
+                            <a th:href="@{/cargarInformacionVenta/}+ ${vendedor.vendedorId}" class="btn btn-info btn-block">
+                                <i class="fas fa-plus" id="botonCrearVenta"></i> [[#{accion.crear-venta}]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonGuardarEnvio">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row"> 
+                        <div class="col">
+                            <button type="submit" name="botonGuardarEnvio" class="btn btn-success btn-block">
+                                <i class="fas fa-check" id="botonGuardarEnvio"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonGuardarVendedor">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row"> 
+                        <div class="col">
+                            <button type="submit" name="botonGuardarVendedor" class="btn btn-success btn-block">
+                                <i class="fas fa-check" id="botonGuardarVendedor"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

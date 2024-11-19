@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Creación fallida</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <div>No se pudo generar su registro. 
+            La información no se encuentra bien o el sistema lo rechazo.
+            <a th:href="@{/}" >[[#{accion.regresar}]]</a>
+        </div>
+    </body>
+</html>
