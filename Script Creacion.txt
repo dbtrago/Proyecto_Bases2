@@ -1,0 +1,120 @@
+-- Crear Tablespaces
+
+CREATE TABLESPACE TS_INVENTARIO
+DATAFILE 'TS_INVENTARIO.dbf' SIZE 10M AUTOEXTEND ON;
+
+CREATE TABLESPACE TS_VENDEDORES
+DATAFILE 'TS_VENDEDORES.dbf' SIZE 10M AUTOEXTEND ON;
+
+CREATE TABLESPACE TS_VENTAS
+DATAFILE 'TS_VENTAS.dbf' SIZE 10M AUTOEXTEND ON;
+
+CREATE TABLESPACE TS_ENVIO
+DATAFILE 'TS_ENVIO.dbf' SIZE 10M AUTOEXTEND ON;
+
+-- Crear Tablas
+
+-- Cliente
+CREATE TABLE Cliente (
+    idCliente VARCHAR2(100 BYTE) PRIMARY KEY,
+    Nombre VARCHAR2(255 BYTE),
+    Celular VARCHAR2(20 BYTE),
+    Identificacion VARCHAR2(100 BYTE),
+    Correo VARCHAR2(255 BYTE),
+    Direccion VARCHAR2(255 BYTE)
+) TABLESPACE TS_VENTAS;
+
+-- Afiliacion
+CREATE TABLE Afiliacion (
+    idAfiliacion VARCHAR2(100 BYTE) PRIMARY KEY,
+    FechaInicial DATE,
+    FechaFinal DATE,
+    Observacion VARCHAR2(255 BYTE),
+    idEstado VARCHAR2(100 BYTE) REFERENCES Estado(idEstado)
+) TABLESPACE TS_VENDEDORES;
+
+-- Nivel
+CREATE TABLE Nivel (
+    idNivel VARCHAR2(100 BYTE) PRIMARY KEY,
+    Nombre VARCHAR2(100 BYTE),
+    Descripcion VARCHAR2(255 BYTE)
+) TABLESPACE TS_VENDEDORES;
+
+-- Estado
+CREATE TABLE Estado (
+    idEstado VARCHAR2(100 BYTE) PRIMARY KEY,
+    Descripcion VARCHAR2(255 BYTE)
+) TABLESPACE TS_ENVIO;
+
+-- TipoProducto
+CREATE TABLE TipoProducto (
+    idTipoProducto VARCHAR2(100 BYTE) PRIMARY KEY,
+    Nombre VARCHAR2(255 BYTE),
+    Descripcion VARCHAR2(255 BYTE)
+) TABLESPACE TS_INVENTARIO;
+
+-- Producto
+CREATE TABLE Producto (
+    idProducto VARCHAR2(100 BYTE) PRIMARY KEY,
+    Nombre VARCHAR2(255 BYTE),
+    Descripcion VARCHAR2(255 BYTE),
+    idTipoProducto VARCHAR2(100 BYTE) REFERENCES TipoProducto(idTipoProducto),
+    Marca VARCHAR2(100 BYTE),
+    Precio NUMBER
+) TABLESPACE TS_INVENTARIO;
+
+-- Vendedor
+CREATE TABLE Vendedor (
+    idVendedor VARCHAR2(100 BYTE) PRIMARY KEY,
+    Nombre VARCHAR2(255 BYTE),
+    Celular VARCHAR2(20 BYTE),
+    Correo VARCHAR2(255 BYTE),
+    Identificacion VARCHAR2(100 BYTE),
+    idVendedorReferido VARCHAR2(100 BYTE) REFERENCES Vendedor(idVendedor),
+    idNivel VARCHAR2(100 BYTE) REFERENCES Nivel(idNivel),
+    Direccion VARCHAR2(255 BYTE)
+) TABLESPACE TS_VENDEDOR;
+
+
+-- Inventario
+CREATE TABLE Inventario (
+    idInventario VARCHAR2(100 BYTE) PRIMARY KEY,
+    Descripcion VARCHAR2(255 BYTE),
+    idProducto VARCHAR2(100 BYTE) REFERENCES Producto(idProducto),
+    Cantidad NUMBER
+) TABLESPACE TS_INVENTARIO;
+
+-- Venta
+CREATE TABLE Venta (
+    idVenta VARCHAR2(100 BYTE) PRIMARY KEY,
+    Fecha DATE,
+    idVendedor VARCHAR2(100 BYTE) REFERENCES Vendedor(idVendedor)
+) TABLESPACE TS_VENTAS;
+
+-- DetalleVenta
+CREATE TABLE DetalleVenta (
+    idDetalleVenta VARCHAR2(100 BYTE) PRIMARY KEY,
+    Cantidad NUMBER,
+    ValorTotal NUMBER,
+    idVenta VARCHAR2(100 BYTE) REFERENCES Venta(idVenta),
+    idProducto VARCHAR2(100 BYTE) REFERENCES Producto(idProducto),
+    idCliente VARCHAR2(100 BYTE) REFERENCES Cliente(idCliente)
+) TABLESPACE TS_VENTAS;
+
+-- Envio
+CREATE TABLE Envio (
+    idEnvio VARCHAR2(100 BYTE) PRIMARY KEY,
+    Descripcion VARCHAR2(255 BYTE),
+    Fecha DATE,
+    idDetalleVenta VARCHAR2(100 BYTE) REFERENCES DetalleVenta(idDetalleVenta),
+    idEstado VARCHAR2(100 BYTE) REFERENCES Estado(idEstado)
+) TABLESPACE TS_ENVIO;
+
+-- Comision
+CREATE TABLE Comision (
+    idComision VARCHAR2(100 BYTE) PRIMARY KEY,
+    Porcentaje NUMBER,
+    Total NUMBER,
+    idVenta VARCHAR2(100 BYTE) REFERENCES Venta(idVenta),
+    idVendedor VARCHAR2(100 BYTE) REFERENCES Vendedor(idVendedor)
+) TABLESPACE TS_VENDEDORES;
